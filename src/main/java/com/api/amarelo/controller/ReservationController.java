@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -50,6 +51,12 @@ public class ReservationController {
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         reservationService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/by-user/{userId}")
+    @PreAuthorize("hasAuthority('SCOPE_BASIC')")
+    public ResponseEntity<List<ReservationDTO>> getByUser(@PathVariable("userId") UUID userId, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(reservationService.getByUser(userId, pageable).getContent());
     }
 
 }

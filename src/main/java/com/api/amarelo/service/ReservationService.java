@@ -5,12 +5,16 @@ import com.api.amarelo.exception.BusinessRuleException;
 import com.api.amarelo.exception.EntityNotFoundException;
 import com.api.amarelo.model.Reservation;
 import com.api.amarelo.model.Seat;
+import com.api.amarelo.model.User;
 import com.api.amarelo.repository.ReservationRepository;
 import com.api.amarelo.repository.SeatRepository;
+import com.api.amarelo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class ReservationService {
@@ -20,6 +24,9 @@ public class ReservationService {
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private MappingService mappingService;
@@ -91,6 +98,21 @@ public class ReservationService {
                 () -> new EntityNotFoundException("Reservation not found with this id: " + id)
         );
         reservationRepository.delete(reservation);
+    }
+
+    /**
+     * retrieves all the reservations by its user
+     *
+     * @param userId the user's id
+     * @return the Page of reservations
+     */
+    public Page<ReservationDTO> getByUser(UUID userId, Pageable pageable) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new EntityNotFoundException("User not found with this id: " + userId)
+        );
+        return reservationRepository.findByUser(user, pageable).map(
+                reservation -> mappingService.toDto(reservation)
+        );
     }
 
     /**
