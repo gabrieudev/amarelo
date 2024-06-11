@@ -68,4 +68,13 @@ public class RestExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(BusinessRuleException.class)
+    public ProblemDetail handleBusinessRuleException(BusinessRuleException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getLocalizedMessage());
+        problemDetail.setTitle("Business rule");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("stacktrace", e.getStackTrace());
+        return problemDetail;
+    }
+
 }
