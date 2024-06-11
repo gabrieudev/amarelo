@@ -3,7 +3,9 @@ package com.api.amarelo.service;
 import com.api.amarelo.dto.SeatDTO;
 import com.api.amarelo.exception.BusinessRuleException;
 import com.api.amarelo.exception.EntityNotFoundException;
+import com.api.amarelo.model.Flight;
 import com.api.amarelo.model.Seat;
+import com.api.amarelo.repository.FlightRepository;
 import com.api.amarelo.repository.SeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,9 @@ public class SeatService {
 
     @Autowired
     private FlightService flightService;
+
+    @Autowired
+    private FlightRepository flightRepository;
 
     @Autowired
     private MappingService mappingService;
@@ -77,6 +82,21 @@ public class SeatService {
                 () -> new EntityNotFoundException("Seat not found with this id: " + id)
         );
         seatRepository.delete(seat);
+    }
+
+    /**
+     * retrieves all the available seats by its flight
+     *
+     * @param flightId the flight's id
+     * @return the Page of seats
+     */
+    public Page<SeatDTO> getAvailable(Long flightId, Pageable pageable) {
+        if (!flightRepository.existsById(flightId)) {
+            throw new EntityNotFoundException("Flight not found with this id: " + flightId);
+        }
+        return seatRepository.findAvailable(flightId, pageable).map(
+            seat -> mappingService.toDto(seat)
+        );
     }
 
     /**

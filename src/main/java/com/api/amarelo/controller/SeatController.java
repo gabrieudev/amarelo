@@ -52,5 +52,11 @@ public class SeatController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping("/available/{flightId}")
+    @PreAuthorize("hasAuthority('SCOPE_BASIC')")
+    public ResponseEntity<List<SeatDTO>> getAvailable(@PathVariable("flightId") Long flightId, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(seatService.getAvailable(flightId, pageable).getContent());
+    }
+
 }
 
