@@ -97,7 +97,7 @@ public class FlightService {
         Flight flight = flightRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Flight not found with this id: " + id)
         );
-        List<Seat> seats = seatRepository.findByFLight(flight);
+        List<Seat> seats = seatRepository.findByFlight(flight);
         return flight.getSeatCapacity() <= seats.size();
     }
 
