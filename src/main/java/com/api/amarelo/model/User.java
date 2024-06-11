@@ -3,8 +3,8 @@ package com.api.amarelo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,7 +29,7 @@ public class User {
     private String password;
 
     @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
     @Column(nullable = false)
     private String nationality;
