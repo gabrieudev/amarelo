@@ -1,6 +1,5 @@
 package com.api.amarelo.dto;
 
-import com.api.amarelo.model.Flight;
 import com.api.amarelo.model.enums.SeatType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -23,6 +22,6 @@ public class SeatDTO {
     private BigDecimal price;
 
     @NotNull
-    private Flight flight;
+    private FlightDTO flight;
 
 }

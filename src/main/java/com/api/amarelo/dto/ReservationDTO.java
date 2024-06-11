@@ -1,9 +1,5 @@
 package com.api.amarelo.dto;
 
-import com.api.amarelo.model.Flight;
-import com.api.amarelo.model.Payment;
-import com.api.amarelo.model.Seat;
-import com.api.amarelo.model.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,15 +11,15 @@ public class ReservationDTO {
     private Long id;
 
     @NotNull
-    private User user;
+    private UserDTO user;
 
     @NotNull
-    private Flight flight;
+    private FlightDTO flight;
 
     @NotNull
-    private Payment payment;
+    private PaymentDTO payment;
 
     @NotNull
-    private Seat seat;
+    private SeatDTO seat;
 
 }

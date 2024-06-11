@@ -1,14 +1,17 @@
 package com.api.amarelo.service;
 
+import com.api.amarelo.dto.PaymentDTO;
 import com.api.amarelo.dto.ReservationDTO;
 import com.api.amarelo.exception.BusinessRuleException;
 import com.api.amarelo.exception.EntityNotFoundException;
+import com.api.amarelo.model.Payment;
 import com.api.amarelo.model.Reservation;
 import com.api.amarelo.model.Seat;
 import com.api.amarelo.model.User;
 import com.api.amarelo.repository.ReservationRepository;
 import com.api.amarelo.repository.SeatRepository;
 import com.api.amarelo.repository.UserRepository;
+import org.jasypt.util.text.StrongTextEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +34,9 @@ public class ReservationService {
     @Autowired
     private MappingService mappingService;
 
+    @Autowired
+    private StrongTextEncryptor strongTextEncryptor;
+
     /**
      * Retrieves a reservation by its id
      *
@@ -41,7 +47,10 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Reservation not found with this id: " + id)
         );
-        return mappingService.toDto(reservation);
+        ReservationDTO reservationDTO = mappingService.toDto(reservation);
+        PaymentDTO paymentDTO = reservationDTO.getPayment();
+        paymentDTO.setCreditCard(strongTextEncryptor.decrypt(paymentDTO.getCreditCard()));
+        return reservationDTO;
     }
 
     /**
@@ -58,6 +67,8 @@ public class ReservationService {
         if (reservationRepository.existsBySeat(seat)) {
             throw new BusinessRuleException("the seat has already been reserved");
         }
+        PaymentDTO paymentDTO = reservationDTO.getPayment();
+        paymentDTO.setCreditCard(strongTextEncryptor.encrypt(paymentDTO.getCreditCard()));
         Reservation reservation = mappingService.toModel(reservationDTO);
         reservationRepository.save(reservation);
     }
@@ -83,8 +94,10 @@ public class ReservationService {
             throw new BusinessRuleException("the seat has already been reserved");
         }
         mappingService.toModel(reservationDTO, reservation);
-        Reservation updatedReservation = reservationRepository.save(reservation);
-        return mappingService.toDto(updatedReservation);
+        reservation.getPayment().setCreditCard(strongTextEncryptor.encrypt(reservation.getPayment().getCreditCard()));
+        ReservationDTO updatedReservation = mappingService.toDto(reservationRepository.save(reservation));
+        updatedReservation.getPayment().setCreditCard(strongTextEncryptor.decrypt(updatedReservation.getPayment().getCreditCard()));
+        return updatedReservation;
     }
 
     /**
@@ -110,9 +123,13 @@ public class ReservationService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("User not found with this id: " + userId)
         );
-        return reservationRepository.findByUser(user, pageable).map(
+        Page<ReservationDTO> reservationDTOPage = reservationRepository.findByUser(user, pageable).map(
                 reservation -> mappingService.toDto(reservation)
         );
+        reservationDTOPage.forEach(
+                reservationDTO -> reservationDTO.getPayment().setCreditCard(strongTextEncryptor.decrypt(reservationDTO.getPayment().getCreditCard()))
+        );
+        return reservationDTOPage;
     }
 
     /**
@@ -121,9 +138,13 @@ public class ReservationService {
      * @return the Page of reservations
      */
     public Page<ReservationDTO> getAll(Pageable pageable) {
-        return reservationRepository.findAll(pageable).map(
+        Page<ReservationDTO> reservationDTOPage = reservationRepository.findAll(pageable).map(
                 reservation -> mappingService.toDto(reservation)
         );
+        reservationDTOPage.forEach(
+                reservationDTO -> reservationDTO.getPayment().setCreditCard(strongTextEncryptor.decrypt(reservationDTO.getPayment().getCreditCard()))
+        );
+        return reservationDTOPage;
     }
 }
 

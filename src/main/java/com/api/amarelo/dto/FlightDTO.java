@@ -1,6 +1,5 @@
 package com.api.amarelo.dto;
 
-import com.api.amarelo.model.Airport;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -18,13 +17,13 @@ public class FlightDTO {
     private String origin;
 
     @NotNull
-    private Airport originAirport;
+    private AirportDTO originAirport;
 
     @NotBlank
     private String destination;
 
     @NotNull
-    private Airport destinationAirport;
+    private AirportDTO destinationAirport;
 
     @NotNull
     private Instant departureTime;

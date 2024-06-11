@@ -4,6 +4,7 @@ import com.api.amarelo.dto.PaymentDTO;
 import com.api.amarelo.exception.EntityNotFoundException;
 import com.api.amarelo.model.Payment;
 import com.api.amarelo.repository.PaymentRepository;
+import org.jasypt.util.text.StrongTextEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,9 @@ public class PaymentService {
     @Autowired
     private MappingService mappingService;
 
+    @Autowired
+    private StrongTextEncryptor strongTextEncryptor;
+
     /**
      * Retrieves a payment by its id
      *
@@ -30,7 +34,9 @@ public class PaymentService {
         Payment payment = paymentRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Payment not found with this id: " + id)
         );
-        return mappingService.toDto(payment);
+        PaymentDTO paymentDTO = mappingService.toDto(payment);
+        paymentDTO.setCreditCard(strongTextEncryptor.decrypt(paymentDTO.getCreditCard()));
+        return paymentDTO;
     }
 
     /**
@@ -46,8 +52,10 @@ public class PaymentService {
                 () -> new EntityNotFoundException("Payment not found with this id: " + id)
         );
         mappingService.toModel(paymentDTO, payment);
-        Payment updatedPayment = paymentRepository.save(payment);
-        return mappingService.toDto(updatedPayment);
+        payment.setCreditCard(strongTextEncryptor.encrypt(payment.getCreditCard()));
+        PaymentDTO updatedPayment = mappingService.toDto(paymentRepository.save(payment));
+        updatedPayment.setCreditCard(strongTextEncryptor.decrypt(updatedPayment.getCreditCard()));
+        return updatedPayment;
     }
 
     /**
@@ -69,9 +77,13 @@ public class PaymentService {
      * @return the Page of payments
      */
     public Page<PaymentDTO> getAll(Pageable pageable) {
-        return paymentRepository.findAll(pageable).map(
+        Page<PaymentDTO> paymentDTOPage = paymentRepository.findAll(pageable).map(
                 payment -> mappingService.toDto(payment)
         );
+        paymentDTOPage.forEach(
+                paymentDTO -> paymentDTO.setCreditCard(strongTextEncryptor.decrypt(paymentDTO.getCreditCard()))
+        );
+        return paymentDTOPage;
     }
 }
 
