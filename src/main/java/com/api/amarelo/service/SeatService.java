@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class SeatService {
 
@@ -96,6 +98,23 @@ public class SeatService {
         }
         return seatRepository.findAvailable(flightId, pageable).map(
             seat -> mappingService.toDto(seat)
+        );
+    }
+
+    /**
+     * retrieves all the available seats by its flight and price
+     *
+     * @param flightId the flight's id
+     * @param min the minimum price
+     * @param max the maximum price
+     * @return the Page of seats
+     */
+    public Page<SeatDTO> getAvailableByPrice(Long flightId, BigDecimal min, BigDecimal max, Pageable pageable) {
+        if (!flightRepository.existsById(flightId)) {
+            throw new EntityNotFoundException("Flight not found with this id: " + flightId);
+        }
+        return seatRepository.findAvailableByPrice(flightId, min, max, pageable).map(
+                seat -> mappingService.toDto(seat)
         );
     }
 

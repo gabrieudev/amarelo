@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -19,12 +20,30 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
             value = "SELECT s.* " +
                     "FROM tb_seats s " +
                     "WHERE s.flight_id = :flightId " +
-                    "AND NOT EXISTS (" +
+                    "AND NOT EXISTS ( " +
                     "   SELECT r.* " +
                     "   FROM tb_reservations r " +
                     "   WHERE r.seat_id = s.id)",
             nativeQuery = true
     )
     Page<Seat> findAvailable(@Param("flightId") Long flightId, Pageable pageable);
+
+    @Query(
+            value = "SELECT s.* " +
+                    "FROM tb_seats s " +
+                    "WHERE (s.flight_id = :flightId) " +
+                    "AND (s.price BETWEEN :min AND :max) " +
+                    "AND NOT EXISTS ( " +
+                    "   SELECT r.* " +
+                    "   FROM tb_reservations r " +
+                    "   WHERE r.seat_id = s.id)",
+            nativeQuery = true
+    )
+    Page<Seat> findAvailableByPrice(
+            @Param("flightId") Long flightId,
+            @Param("min") BigDecimal min,
+            @Param("max") BigDecimal max,
+            Pageable pageable
+    );
 
 }

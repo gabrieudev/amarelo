@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -56,6 +57,17 @@ public class SeatController {
     @PreAuthorize("hasAuthority('SCOPE_BASIC')")
     public ResponseEntity<List<SeatDTO>> getAvailable(@PathVariable("flightId") Long flightId, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(seatService.getAvailable(flightId, pageable).getContent());
+    }
+
+    @GetMapping("/available/{flightId}/{min}/{max}")
+    @PreAuthorize("hasAuthority('SCOPE_BASIC')")
+    public ResponseEntity<List<SeatDTO>> getAvailableByPrice(
+            @PathVariable("flightId") Long flightId,
+            @PathVariable("min") BigDecimal min,
+            @PathVariable("max") BigDecimal max,
+            Pageable pageable
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(seatService.getAvailableByPrice(flightId, min, max, pageable).getContent());
     }
 
 }
