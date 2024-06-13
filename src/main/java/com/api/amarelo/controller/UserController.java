@@ -28,7 +28,7 @@ public class UserController {
     private TokenService tokenService;
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<Void> register(@Valid @RequestBody UserDTO userDTO) {
         userService.register(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -41,23 +41,24 @@ public class UserController {
 
     @PutMapping("/update-password")
     @PreAuthorize("hasAuthority('SCOPE_BASIC')")
-    public ResponseEntity<Object> updatePassword(
+    public ResponseEntity<Void> updatePassword(
             @AuthenticationPrincipal Jwt jwt,
             @Valid @RequestBody UpdatePasswordRequest updatePasswordRequest
     ) {
         if (tokenService.notBelongs(jwt, updatePasswordRequest.email())) {
             throw new AccessDeniedException("You don't have access to this");
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Password updated successfully");
+        userService.updatePassword(updatePasswordRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/check/{userId}/{verificationId}")
-    public ResponseEntity<Object> check(
+    @PostMapping("/check/{userId}/{verificationId}")
+    public ResponseEntity<Void> check(
             @PathVariable("userId") UUID userId,
             @PathVariable("verificationId") UUID verificationId
     ) {
         userService.check(userId, verificationId);
-        return ResponseEntity.status(HttpStatus.OK).body("E-mail verified successfully");
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

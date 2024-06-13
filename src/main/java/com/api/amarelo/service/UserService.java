@@ -92,7 +92,7 @@ public class UserService {
 
         emailService.sendEmail(new Email(
                 user.getEmail(),
-                "AirBooking E-mail Verification",
+                "Amarelo E-mail Verification",
                 "The code to verify your e-mail is " + savedCheckerUser.getId()));
 
         return savedUser;

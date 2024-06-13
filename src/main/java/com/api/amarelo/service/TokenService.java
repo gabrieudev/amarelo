@@ -20,7 +20,7 @@ public class TokenService {
         String scopes = String.join(" ", user.getRoles());
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("Library")
+                .issuer("Amarelo")
                 .subject(user.getId().toString())
                 .issuedAt(Instant.now())
                 .claim("email", user.getEmail())

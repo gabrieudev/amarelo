@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,7 +28,7 @@ public class UserDTO {
     private String password;
 
     @NotNull
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
     @NotBlank
     private String nationality;
