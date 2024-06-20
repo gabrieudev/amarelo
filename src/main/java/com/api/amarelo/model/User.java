@@ -1,10 +1,12 @@
 package com.api.amarelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,17 +30,13 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private Date dateOfBirth;
-
-    @Column(nullable = false)
-    private String nationality;
-
-    @Column(name = "passport_number", nullable = false)
-    private String passportNumber;
-
-    @Column(nullable = false)
-    private Set<String> roles;
+    @ManyToMany
+    @JoinTable(
+            name = "tb_users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -46,7 +44,7 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @Column(name = "is_checked", nullable = false)
-    private boolean isChecked;
+    @Column(nullable = false)
+    private boolean enabled;
 
 }

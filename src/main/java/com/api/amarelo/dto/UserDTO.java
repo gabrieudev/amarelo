@@ -1,12 +1,9 @@
 package com.api.amarelo.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.api.amarelo.model.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
@@ -17,31 +14,18 @@ public class UserDTO {
 
     private UUID id;
 
-    @NotBlank
     private String name;
 
-    @NotBlank
-    @Email
     private String email;
 
-    @NotBlank
     private String password;
 
-    @NotNull
-    private Date dateOfBirth;
-
-    @NotBlank
-    private String nationality;
-
-    @NotBlank
-    private String passportNumber;
-
-    private Set<String> roles;
+    private Set<Role> roles;
 
     private Instant createdAt;
 
     private Instant updatedAt;
 
-    private boolean isChecked;
+    private boolean enabled;
 
 }

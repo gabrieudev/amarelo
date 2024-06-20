@@ -3,17 +3,12 @@ package com.api.amarelo.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record UpdatePasswordRequest(
-
-        @Email
+public record LoginDTO(
         @NotBlank
+        @Email
         String email,
 
         @NotBlank
-        String password,
-
-        @NotBlank
-        String newPassword
-
+        String password
 ) {
 }

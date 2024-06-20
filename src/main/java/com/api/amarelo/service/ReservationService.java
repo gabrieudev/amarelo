@@ -4,7 +4,6 @@ import com.api.amarelo.dto.PaymentDTO;
 import com.api.amarelo.dto.ReservationDTO;
 import com.api.amarelo.exception.BusinessRuleException;
 import com.api.amarelo.exception.EntityNotFoundException;
-import com.api.amarelo.model.Payment;
 import com.api.amarelo.model.Reservation;
 import com.api.amarelo.model.Seat;
 import com.api.amarelo.model.User;

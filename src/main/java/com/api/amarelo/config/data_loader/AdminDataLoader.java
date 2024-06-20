@@ -1,6 +1,9 @@
 package com.api.amarelo.config.data_loader;
 
+import com.api.amarelo.model.Role;
 import com.api.amarelo.model.User;
+import com.api.amarelo.model.enums.RoleEnum;
+import com.api.amarelo.repository.RoleRepository;
 import com.api.amarelo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,8 +33,17 @@ public class AdminDataLoader implements CommandLineRunner {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public void run(String... args) throws Exception {
+        for (RoleEnum roleEnum : RoleEnum.values()) {
+            Role role = new Role();
+            role.setId(roleEnum.getId());
+            role.setRole(roleEnum);
+            roleRepository.save(role);
+        }
         String emailAdmin = "admin@gmail.com";
         Optional<User> userOptional = userRepository.findByEmail(emailAdmin);
         if (userOptional.isEmpty()) {
@@ -39,14 +51,12 @@ public class AdminDataLoader implements CommandLineRunner {
             user.setEmail(emailAdmin);
             String passwordAdmin = "admin";
             user.setPassword(bCryptPasswordEncoder.encode(passwordAdmin));
-            user.setRoles(Set.of("ADMIN", "BASIC"));
+            Set<Role> roles = new HashSet<>(roleRepository.findAll());
+            user.setRoles(roles);
             user.setCreatedAt(Instant.now());
             user.setUpdatedAt(Instant.now());
             user.setName("admin");
-            user.setDateOfBirth(Date.valueOf("2024-01-01"));
-            user.setNationality("nationality");
-            user.setPassportNumber("passport");
-            user.setChecked(true);
+            user.setEnabled(true);
             userRepository.save(user);
         }
     }
