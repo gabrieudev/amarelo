@@ -1,8 +1,8 @@
-# API REST para reservas aéreas da Amarelo
+# API REST para reservas aéreas
 
-![Java](https://img.shields.io/badge/Java-21-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green) [![LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-blue)](https://www.linkedin.com/in/gabrieudev) ![GPL License](https://img.shields.io/badge/License-GPL-blue)
+![Java](https://img.shields.io/badge/Java-17-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green) [![LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-blue)](https://www.linkedin.com/in/gabrieudev) ![GPL License](https://img.shields.io/badge/License-GPL-blue)
 
-Seja bem vindo(a) ao meu projeto de **API REST para reservas aéreas da Amarelo**. O serviço (fictício) usará este projeto para o back-end.
+Seja bem vindo(a) ao meu projeto de **API REST para reservas aéreas**. O serviço (fictício), chamado Amarelo, usará este projeto para o backend.
 
 ## Tabela de conteúdos
 
@@ -18,7 +18,7 @@ Seja bem vindo(a) ao meu projeto de **API REST para reservas aéreas da Amarelo*
 
 ## Introdução
 
-O projeto foi criado com a proposta de fornecer uma API REST rebusta para ser consumida por um front-end. Além disso, o projeto implementa autenticação com JWTs, autorização por meio de roles para os usuários e criptografia das informações de pagamento, utilizando as melhores e mais atualizadas práticas do mercado para assegurar a integridade dos dados sensíveis. 
+O projeto foi criado com a proposta de fornecer uma API REST capaz de registrar usuários e realizar reservas aéreas. Além disso, o projeto implementa autenticação com JWTs, autorização por meio de roles para os usuários e criptografia das informações de pagamento, utilizando as melhores e mais atualizadas práticas do mercado para assegurar a integridade dos dados sensíveis. 
 
 ## Funcionalidades
 
@@ -28,14 +28,18 @@ O projeto foi criado com a proposta de fornecer uma API REST rebusta para ser co
 - Login de usuários com autenticação através de JWT.
 - Autorização com roles para o controle de acesso de diferentes endpoints da API. 
 - Senhas criptografadas utilizando as melhores práticas da indústria.
-- Integração com o banco de dados PostgreSQL.
+- Integração com o banco de dados MySQL.
 
 ## Tecnologias
 
-- ![Java](https://img.shields.io/badge/Java-21-orange): Linguagem de programação.
+- ![Java](https://img.shields.io/badge/Java-17-orange): Linguagem de programação.
 - ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green): Framework usado para a construção de aplicações.
 - ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green): Framework para segurança de aplicações Spring.
-- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue): Banco de dados relacional.
+- ![MySQL](https://img.shields.io/badge/MySQL-Database-blue): Banco de dados relacional.
+
+## Configuração
+
+- Antes de iniciar a aplicação, atualize o arquivo `application.properties` com todas informações necessárias.
 
 ## Iniciando
 
@@ -43,13 +47,11 @@ Siga esses passos para executar o projeto na sua máquina:
 
 1. Clone o repositório: `git clone https://github.com/gabrieudev/amarelo.git`
 2. Navegue para o diretório do projeto: `cd <caminho>`
-3. Atualize as configurações gerais em `application.properties`.
-4. Construa o projeto: `./mvnw clean install` (para Windows: `mvnw.cmd clean install`)
-5. Execute a aplicação: `./mvnw spring-boot:run` (para Windows: `mvnw.cmd spring-boot:run`)
-
-## Configuração
-
-- Atualize o arquivo `application.properties` com todas informações necessárias.
+3. Navegue para o diretório docker: `cd docker`
+4. Execute o arquivo docker compose para criar e inicializar o container MySQL: `docker compose up`
+5. Volte para o diretório inicial: `cd <caminho>`
+6. Construa o projeto: `./mvnw clean install` (para Windows: `mvnw.cmd clean install`)
+7. Execute a aplicação: `./mvnw spring-boot:run` (para Windows: `mvnw.cmd spring-boot:run`)
 
 ## Uso
 

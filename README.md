@@ -1,15 +1,15 @@
-# Amarelo Air Reservations REST API
+# REST API for Airline Reservations
 
-![Java](https://img.shields.io/badge/Java-21-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green) [![LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-blue)](https://www.linkedin.com/in/gabrieudev) ![GPL License](https://img.shields.io/badge/License-GPL-blue)
+![Java](https://img.shields.io/badge/Java-17-orange) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green) ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green) [![LinkedIn](https://img.shields.io/badge/Connect%20on-LinkedIn-blue)](https://www.linkedin.com/in/gabrieudev) ![GPL License](https://img.shields.io/badge/License-GPL-blue)
 
-Welcome to my **Amarelo Air Reservations REST API** project. 
+Welcome to my **REST API for Airline Reservations** project. 
 
 Please select your preferred language:
 
 - [English](README.md)
 - [Português (Brasil)](README.pt-br.md)
 
-This (fictitious) service will use this project for the back-end.
+The (fictional) service, named Amarelo, will use this project for its backend.
 
 ## Table of Contents
 
@@ -25,24 +25,28 @@ This (fictitious) service will use this project for the back-end.
 
 ## Introduction
 
-This project was created with the aim of providing a robust REST API to be consumed by a front-end. Additionally, the project implements JWT authentication, role-based authorization for users, and encryption of payment information, utilizing the best and most up-to-date market practices to ensure the integrity of sensitive data.
+This project aims to provide a REST API capable of registering users and handling airline reservations. Additionally, the project implements JWT authentication, role-based authorization for users, and encryption of payment information, following the best and most current industry practices to ensure data integrity.
 
 ## Features
 
-- Email confirmation for user registration.
-- Paginated search functionality.
-- Endpoint documentation using Swagger.
+- Email sending for user registration confirmation.
+- Pagination-enabled searches.
+- Documentation with Swagger-enabled endpoints.
 - User login with JWT authentication.
-- Role-based authorization to control access to different API endpoints.
-- Encrypted passwords following industry best practices.
-- Integration with PostgreSQL database.
+- Role-based authorization for controlling access to different API endpoints.
+- Passwords encrypted using industry best practices.
+- Integration with MySQL database.
 
 ## Technologies
 
-- ![Java](https://img.shields.io/badge/Java-21-orange): Programming language.
-- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green): Framework used for building applications.
-- ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green): Framework for securing Spring applications.
-- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue): Relational database.
+- ![Java](https://img.shields.io/badge/Java-17-orange): Programming language.
+- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3-green): Framework for building applications.
+- ![Spring Security](https://img.shields.io/badge/Spring%20Security-6-green): Security framework for Spring applications.
+- ![MySQL](https://img.shields.io/badge/MySQL-Database-blue): Relational database.
+
+## Configuration
+
+- Before starting the application, update the `application.properties` file with all necessary information.
 
 ## Getting Started
 
@@ -50,81 +54,79 @@ Follow these steps to run the project on your machine:
 
 1. Clone the repository: `git clone https://github.com/gabrieudev/amarelo.git`
 2. Navigate to the project directory: `cd <path>`
-3. Update the general settings in `application.properties`.
-4. Build the project: `./mvnw clean install` (for Windows: `mvnw.cmd clean install`)
-5. Run the application: `./mvnw spring-boot:run` (for Windows: `mvnw.cmd spring-boot:run`)
-
-## Configuration
-
-- Update the `application.properties` file with all necessary information.
+3. Navigate to the docker directory: `cd docker`
+4. Run the docker-compose file to create and start the MySQL container: `docker compose up`
+5. Return to the initial directory: `cd <path>`
+6. Build the project: `./mvnw clean install` (for Windows: `mvnw.cmd clean install`)
+7. Run the application: `./mvnw spring-boot:run` (for Windows: `mvnw.cmd spring-boot:run`)
 
 ## Usage
 
-1. Upon starting the project, an administrator user is automatically inserted into the database in `AdminDataLoader.java`. Their information can be changed either there or in `application.properties`.
-2. Use an administrator user to access protected endpoints.
+1. Upon starting the project, an administrator user with predefined roles is automatically inserted into the database using `AdminDataLoader.java`. You can modify their information either there or in `application.properties`.
+2. Use an administrator role user to access protected endpoints.
 
 ## Endpoints
 
 Airport:
 
-- `ADMIN Role` `POST /airports`: Saves an airport.
-- `BASIC Role` `GET /airports/{id}`: Gets an airport by ID.
-- `BASIC Role` `GET /airports`: Gets all airports.
-- `ADMIN Role` `PUT /airports/{id}`: Updates an airport.
-- `ADMIN Role` `DELETE /airports/{id}`: Deletes an airport.
+- `ADMIN Role` `POST /airports`: Save an airport.
+- `BASIC Role` `GET /airports/{id}`: Get an airport by id.
+- `BASIC Role` `GET /airports`: Get all airports.
+- `ADMIN Role` `PUT /airports/{id}`: Update an airport.
+- `ADMIN Role` `DELETE /airports/{id}`: Delete an airport.
 
 Flight:
 
-- `ADMIN Role` `POST /flights`: Saves a flight.
-- `BASIC Role` `GET /flights/{id}`: Gets a flight by ID.
-- `BASIC Role` `GET /flights`: Gets all flights.
-- `ADMIN Role` `PUT /flights/{id}`: Updates a flight.
-- `ADMIN Role` `DELETE /flights/{id}`: Deletes a flight.
+- `ADMIN Role` `POST /flights`: Save a flight.
+- `BASIC Role` `GET /flights/{id}`: Get a flight by id.
+- `BASIC Role` `GET /flights`: Get all flights.
+- `ADMIN Role` `PUT /flights/{id}`: Update a flight.
+- `ADMIN Role` `DELETE /flights/{id}`: Delete a flight.
 
 Seat:
 
-- `ADMIN Role` `POST /seats`: Saves a seat.
-- `BASIC Role` `GET /seats/{id}`: Gets a seat by ID.
-- `BASIC Role` `GET /seats`: Gets all seats.
-- `ADMIN Role` `PUT /seats/{id}`: Updates a seat.
-- `ADMIN Role` `DELETE /seats/{id}`: Deletes a seat.
-- `BASIC Role` `GET /seats/available/{flightId}`: Gets all available seats for a flight.
-- `BASIC Role` `GET /seats/available/{flightId}/{min}/{max}`: Gets all available seats for a flight within a price range.
+- `ADMIN Role` `POST /seats`: Save a seat.
+- `BASIC Role` `GET /seats/{id}`: Get a seat by id.
+- `BASIC Role` `GET /seats`: Get all seats.
+- `ADMIN Role` `PUT /seats/{id}`: Update a seat.
+- `ADMIN Role` `DELETE /seats/{id}`: Delete a seat.
+- `BASIC Role` `GET /seats/available/{flightId}`: Get all available seats for a flight.
+- `BASIC Role` `GET /seats/available/{flightId}/{min}/{max}`: Get available seats for a flight within a price range.
 
 Reservation:
 
-- `BASIC Role` `POST /reservations`: Saves a reservation.
-- `BASIC Role` `GET /reservations/{id}`: Gets a reservation by ID.
-- `ADMIN Role` `GET /reservations`: Gets all reservations.
-- `BASIC Role` `PUT /reservations/{id}`: Updates a reservation.
-- `BASIC Role` `DELETE /reservations/{id}`: Deletes a reservation.
-- `BASIC Role` `GET /reservations/by-user/{userId}`: Gets all reservations for a user.
+- `BASIC Role` `POST /reservations`: Save a reservation.
+- `BASIC Role` `GET /reservations/{id}`: Get a reservation by id.
+- `ADMIN Role` `GET /reservations`: Get all reservations.
+- `BASIC Role` `PUT /reservations/{id}`: Update a reservation.
+- `BASIC Role` `DELETE /reservations/{id}`: Delete a reservation.
+- `BASIC Role` `GET /reservations/by-user/{userId}`: Get all reservations of a user.
 
 Payment:
 
-- `BASIC Role` `GET /payments/{id}`: Gets a payment by ID.
-- `ADMIN Role` `GET /payments`: Gets all payments.
-- `BASIC Role` `PUT /payments/{id}`: Updates a payment.
-- `ADMIN Role` `DELETE /payments/{id}`: Deletes a payment.
+- `BASIC Role` `GET /payments/{id}`: Get a payment by id.
+- `ADMIN Role` `GET /payments`: Get all payments.
+- `BASIC Role` `PUT /payments/{id}`: Update a payment.
+- `ADMIN Role` `DELETE /payments/{id}`: Delete a payment.
 
 User:
 
-- `POST /auth/register`: Registers a user and sends a confirmation link to their email.
-- `GET /users/confirm`: Verifies the email.
-- `POST /auth/login`: Logs in and receives a JWT.
-- `ADMIN Role` `GET /users`: Retrieves all users.
-- `ADMIN Role` `DELETE /users/{userId}`: Deletes a user.
-- `BASIC Role` `GET /users/{userId}`: Retrieves a user by ID.
+- `POST /auth/register`: Register a user and send a confirmation link to their email.
+- `GET /users/confirm`: Verify the email.
+- `POST /auth/login`: Perform login and receive a JWT.
+- `ADMIN Role` `GET /users`: Get all users.
+- `ADMIN Role` `DELETE /users/{userId}`: Delete a user.
+- `BASIC Role` `GET /users/{userId}`: Get a user by ID.
 
-Access the complete documentation at the `/swagger-ui.html` endpoint.
+Access the full documentation at the `/swagger-ui.html` endpoint.
 
 ## Contributions
 
-Contributions are very welcome! If you want to contribute, fork the repository and create a pull request.
+Contributions are welcome! If you would like to contribute, fork the repository and create a pull request.
 
 ## Contact
 
-If you have any suggestions or questions, contact me on [LinkedIn](https://www.linkedin.com/in/gabrieudev)
+If you have any suggestions or questions, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/gabrieudev).
 
 ---
 
