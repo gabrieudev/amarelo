@@ -44,13 +44,11 @@ public class AdminDataLoader implements CommandLineRunner {
             role.setRole(roleEnum);
             roleRepository.save(role);
         }
-        String emailAdmin = "admin@gmail.com";
-        Optional<User> userOptional = userRepository.findByEmail(emailAdmin);
+        Optional<User> userOptional = userRepository.findByEmail(adminEmail);
         if (userOptional.isEmpty()) {
             User user = new User();
-            user.setEmail(emailAdmin);
-            String passwordAdmin = "admin";
-            user.setPassword(bCryptPasswordEncoder.encode(passwordAdmin));
+            user.setEmail(adminEmail);
+            user.setPassword(bCryptPasswordEncoder.encode(adminPassword));
             Set<Role> roles = new HashSet<>(roleRepository.findAll());
             user.setRoles(roles);
             user.setCreatedAt(Instant.now());

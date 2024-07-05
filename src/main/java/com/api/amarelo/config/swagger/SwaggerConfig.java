@@ -14,7 +14,7 @@ public class SwaggerConfig {
     public OpenAPI amareloOpenAPI(){
         return new OpenAPI()
                 .info(new Info().title("Amarelo REST API")
-                        .description("REST API for Amarelo air booking service")
+                        .description("REST API for Amarelo air reservations service")
                         .version("v0.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
