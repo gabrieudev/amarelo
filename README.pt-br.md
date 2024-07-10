@@ -110,6 +110,7 @@ User:
 - `ADMIN Role` `GET /users`: Obtém todos usuários.
 - `ADMIN Role` `DELETE /users/{userId}`: Deleta um usuário.
 - `BASIC Role` `GET /users/{userId}`: Obtém um usuário de acordo com o ID.
+- `BASIC Role` `POST /users/change-password`: Muda a senha de um usuário.
 
 Acesse a documentação completa no endpoint `/swagger-ui.html`
 

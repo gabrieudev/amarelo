@@ -111,12 +111,13 @@ Payment:
 
 User:
 
-- `POST /auth/register`: Register a user and send a confirmation link to their email.
-- `GET /users/confirm`: Verify the email.
-- `POST /auth/login`: Perform login and receive a JWT.
-- `ADMIN Role` `GET /users`: Get all users.
-- `ADMIN Role` `DELETE /users/{userId}`: Delete a user.
-- `BASIC Role` `GET /users/{userId}`: Get a user by ID.
+- `POST /auth/register`: Registers a user and sends a confirmation link to their email.
+- `GET /users/confirm`: Email verification.
+- `POST /auth/login`: Logs in and receives a JWT.
+- `ADMIN Role` `GET /users`: Retrieves all users.
+- `ADMIN Role` `DELETE /users/{userId}`: Deletes a user.
+- `BASIC Role` `GET /users/{userId}`: Retrieves a user by ID.
+- `BASIC Role` `POST /users/change-password`: Changes a user's password.
 
 Access the full documentation at the `/swagger-ui.html` endpoint.
 
