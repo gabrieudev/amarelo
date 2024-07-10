@@ -7,13 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginDTO {
-        @NotBlank
-        @Email
-        private String email;
+@AllArgsConstructor
+public class PasswordDTO {
 
-        @NotBlank
-        private String password;
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotBlank
+    private String currentPassword;
+
+    @NotBlank
+    private String newPassword;
+
 }
