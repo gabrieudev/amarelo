@@ -1,12 +1,14 @@
 package com.api.amarelo.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "id")
 @Table(name = "tb_reservations")

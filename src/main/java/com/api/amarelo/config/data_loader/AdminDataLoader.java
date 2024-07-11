@@ -1,9 +1,15 @@
 package com.api.amarelo.config.data_loader;
 
+import com.api.amarelo.model.PaymentStatus;
 import com.api.amarelo.model.Role;
+import com.api.amarelo.model.SeatType;
 import com.api.amarelo.model.User;
+import com.api.amarelo.model.enums.PaymentStatusEnum;
 import com.api.amarelo.model.enums.RoleEnum;
+import com.api.amarelo.model.enums.SeatTypeEnum;
+import com.api.amarelo.repository.PaymentStatusRepository;
 import com.api.amarelo.repository.RoleRepository;
+import com.api.amarelo.repository.SeatTypeRepository;
 import com.api.amarelo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,11 +43,25 @@ public class AdminDataLoader implements CommandLineRunner {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private PaymentStatusRepository paymentStatusRepository;
+
+    @Autowired
+    private SeatTypeRepository seatTypeRepository;
+
     @Override
     public void run(String... args) throws Exception {
         Arrays.stream(RoleEnum.values()).map(
                 roleEnum -> new Role(roleEnum.getId(), roleEnum.getRole())
         ).forEach(roleRepository::save);
+
+        Arrays.stream(PaymentStatusEnum.values()).map(
+                paymentStatusEnum -> new PaymentStatus(paymentStatusEnum.getId(), paymentStatusEnum.getStatus())
+        ).forEach(paymentStatusRepository::save);
+
+        Arrays.stream(SeatTypeEnum.values()).map(
+                seatTypeEnum -> new SeatType(seatTypeEnum.getId(), seatTypeEnum.getType())
+        ).forEach(seatTypeRepository::save);
 
         Optional<User> userOptional = userRepository.findByEmail(adminEmail);
         if (userOptional.isEmpty()) {

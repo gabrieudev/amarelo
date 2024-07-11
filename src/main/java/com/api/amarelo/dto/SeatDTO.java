@@ -1,6 +1,6 @@
 package com.api.amarelo.dto;
 
-import com.api.amarelo.model.enums.SeatType;
+import com.api.amarelo.model.SeatType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;

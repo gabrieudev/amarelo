@@ -1,7 +1,7 @@
 package com.api.amarelo.model;
 
-import com.api.amarelo.model.enums.PaymentStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "id")
 @Table(name = "tb_payments")
@@ -29,7 +30,6 @@ public class Payment {
     @Column(nullable = false)
     private Instant date;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = false)
     private PaymentStatus paymentStatus;
 

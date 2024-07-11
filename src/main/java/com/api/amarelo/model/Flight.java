@@ -7,6 +7,7 @@ import java.time.Instant;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "id")
 @Table(name = "tb_flights")
