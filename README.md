@@ -15,6 +15,7 @@ The (fictional) service, named Amarelo, will use this project for its backend.
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Class diagram](#class-diagram)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
@@ -36,6 +37,10 @@ This project aims to provide a REST API capable of registering users and handlin
 - Role-based authorization for controlling access to different API endpoints.
 - Passwords encrypted using industry best practices.
 - Integration with MySQL database.
+
+## Class Diagram
+
+![Diagram](images/classes.png)
 
 ## Technologies
 

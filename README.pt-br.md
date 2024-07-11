@@ -8,6 +8,7 @@ Seja bem vindo(a) ao meu projeto de **API REST para reservas aéreas**. O servi�
 
 - [Introdução](#introdução)
 - [Funcionalidades](#funcionalidades)
+- [Diagrama de classes](#diagrama-de-classes)
 - [Tecnologias](#tecnologias)
 - [Iniciando](#iniciando)
 - [Configuração](#configuração)
@@ -29,6 +30,10 @@ O projeto foi criado com a proposta de fornecer uma API REST capaz de registrar 
 - Autorização com roles para o controle de acesso de diferentes endpoints da API. 
 - Senhas criptografadas utilizando as melhores práticas da indústria.
 - Integração com o banco de dados MySQL.
+
+## Diagrama de classes
+
+![Diagrama](images/classes.png)
 
 ## Tecnologias
 
