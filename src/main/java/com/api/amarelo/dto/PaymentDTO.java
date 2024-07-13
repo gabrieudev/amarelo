@@ -28,7 +28,6 @@ public class PaymentDTO {
 
     private Instant date;
 
-    @NotNull
     private PaymentStatus paymentStatus;
 
 }

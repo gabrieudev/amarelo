@@ -20,7 +20,8 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "seat_type", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "seat_type_id")
     private SeatType seatType;
 
     @Column(nullable = false)

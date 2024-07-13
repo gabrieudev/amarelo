@@ -30,7 +30,8 @@ public class Payment {
     @Column(nullable = false)
     private Instant date;
 
-    @Column(name = "payment_status", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "payment_status_id")
     private PaymentStatus paymentStatus;
 
 }
