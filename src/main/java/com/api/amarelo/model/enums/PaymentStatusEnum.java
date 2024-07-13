@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum PaymentStatusEnum {
     PENDING(1L, "pending"),
     CONFIRMED(2L, "confirmed"),
-    CANCELLED(3L, "cancelled");
+    CANCELED(3L, "canceled");
 
     private Long id;
     private String status;
