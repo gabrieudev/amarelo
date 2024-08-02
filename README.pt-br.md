@@ -19,7 +19,7 @@ Seja bem vindo(a) ao meu projeto de **API REST para reservas aéreas**. O servi�
 
 ## Introdução
 
-O projeto foi criado com a proposta de fornecer uma API REST capaz de registrar usuários e realizar reservas aéreas. Além disso, o projeto implementa autenticação com JWTs, autorização por meio de roles para os usuários e criptografia das informações de pagamento, utilizando as melhores e mais atualizadas práticas do mercado para assegurar a integridade dos dados sensíveis. 
+Este projeto foi desenvolvido para um trabalho acadêmico em Análise Orientada a Objetos (AOO), como conclusão da disciplina. A API implementa autenticação com JWTs, autorização por meio de roles para os usuários, criptografia das informações de pagamento, utilizando as melhores e mais atualizadas práticas do mercado para assegurar a integridade dos dados sensíveis e endpoints para manipulação das entidades que, além de permitirem a reserva dos voos, validam entradas e regras de negócio.
 
 ## Funcionalidades
 
@@ -48,15 +48,12 @@ O projeto foi criado com a proposta de fornecer uma API REST capaz de registrar 
 
 ## Iniciando
 
-Siga esses passos para executar o projeto na sua máquina:
+Siga esses passos para executar o projeto na sua máquina (necessário ter o docker instalado):
 
 1. Clone o repositório: `git clone https://github.com/gabrieudev/amarelo.git`
 2. Navegue para o diretório do projeto: `cd <caminho>`
-3. Navegue para o diretório docker: `cd docker`
-4. Execute o arquivo docker compose para criar e inicializar o container MySQL: `docker compose up`
-5. Volte para o diretório inicial: `cd <caminho>`
-6. Construa o projeto: `./mvnw clean install` (para Windows: `mvnw.cmd clean install`)
-7. Execute a aplicação: `./mvnw spring-boot:run` (para Windows: `mvnw.cmd spring-boot:run`)
+3. Construa o projeto: `./mvnw clean install` (para Windows: `mvnw.cmd clean install`)
+4. Execute a aplicação: `./mvnw spring-boot:run` (para Windows: `mvnw.cmd spring-boot:run`)
 
 ## Uso
 

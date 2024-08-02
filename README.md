@@ -26,7 +26,7 @@ The (fictional) service, named Amarelo, will use this project for its backend.
 
 ## Introduction
 
-This project aims to provide a REST API capable of registering users and handling airline reservations. Additionally, the project implements JWT authentication, role-based authorization for users, and encryption of payment information, following the best and most current industry practices to ensure data integrity.
+This project was developed for an academic assignment in Object-Oriented Analysis (OOA), as a conclusion to the course. The API implements authentication with JWTs, authorization through user roles, encryption of payment information, using the best and most up-to-date market practices to ensure the integrity of sensitive data, and endpoints for manipulating entities that, in addition to allowing flight reservations, validate inputs and business rules.
 
 ## Features
 
@@ -55,15 +55,12 @@ This project aims to provide a REST API capable of registering users and handlin
 
 ## Getting Started
 
-Follow these steps to run the project on your machine:
+Follow these steps to run the project on your machine (docker must be installed):
 
 1. Clone the repository: `git clone https://github.com/gabrieudev/amarelo.git`
 2. Navigate to the project directory: `cd <path>`
-3. Navigate to the docker directory: `cd docker`
-4. Run the docker-compose file to create and start the MySQL container: `docker compose up`
-5. Return to the initial directory: `cd <path>`
-6. Build the project: `./mvnw clean install` (for Windows: `mvnw.cmd clean install`)
-7. Run the application: `./mvnw spring-boot:run` (for Windows: `mvnw.cmd spring-boot:run`)
+3. Build the project: `./mvnw clean install` (for Windows: `mvnw.cmd clean install`)
+4. Run the application: `./mvnw spring-boot:run` (for Windows: `mvnw.cmd spring-boot:run`)
 
 ## Usage
 
